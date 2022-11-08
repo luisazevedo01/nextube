@@ -1,11 +1,36 @@
 import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import { connectToDatabase, disconnectFromDatabase } from "./utils/database";
+import logger from "./utils/logger";
+import { CORS_ORIGIN } from "./constants";
+import userRoute from "./modules/user/user.route"
 
 const PORT = process.env.PORT || 4000;
 
 const app = express();
 
-const server = app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
+// -- middlewares --
+app.use(cookieParser());
+
+app.use(express.json());
+
+app.use(
+  cors({
+    origin: CORS_ORIGIN,
+    credentials: true,
+  })
+);
+
+app.use(helmet());
+
+app.use('/api/users/', userRoute)
+
+const server = app.listen(PORT, async () => {
+  await connectToDatabase();
+
+  logger.info(`Server listening at http://localhost:${PORT}`);
 });
 
 const signals = ["SIGTERM", "SIGINT"];
@@ -15,9 +40,10 @@ function gracefulShutdown(signal: string) {
     server.close();
 
     // disconnect from the db
+    await disconnectFromDatabase();
 
-    console.log("Server DOWN...");
-    console.log("Killed by: ", signal);
+    logger.info("Server down...");
+    logger.info("Killed by: " + signal);
 
     process.exit(0);
   });
