@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import logger from "./logger";
 
 const DB_CONNECTION_STRING =
-  "mongodb+srv://accessDB:pwd123@youtubecluster.kmnktfe.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb://localhost/youtubedb";
 
 export async function connectToDatabase() {
   try {
