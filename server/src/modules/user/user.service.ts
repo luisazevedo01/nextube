@@ -4,6 +4,6 @@ export async function createUser(user: any) {
   return UserModel.create(user)
 }
 
-export async function getUser(username: string) {
-  return UserModel.findOne({ username })
+export async function getUsers() {
+  return UserModel.find()
 }

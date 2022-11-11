@@ -1,4 +1,4 @@
-import { object, string } from 'zod'
+import { object, string, TypeOf } from 'zod'
 
 export const registerUserSchema = {
   body: object({
@@ -19,3 +19,5 @@ export const registerUserSchema = {
     path: ["confirmPassword"]
   })
 }
+
+export type RegisterUserBody = TypeOf<typeof registerUserSchema.body>

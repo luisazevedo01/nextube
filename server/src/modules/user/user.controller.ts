@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { UserModel } from './user.model'
-import { createUser } from './user.service'
+import { RegisterUserBody } from './user.schema'
+import { createUser, getUsers } from './user.service'
 
 class UserController {
-  async register(req: Request, res: Response) {
+  async register(req: Request<{}, {}, RegisterUserBody>, res: Response) {
     const { username, email, password } = req.body
 
     try {
@@ -22,15 +22,15 @@ class UserController {
     }
   }
 
-  async getUsers(req: Request, res: Response) {
+  async getAll(req: Request, res: Response) {
     try {
-      const users = UserModel.find()
+      const users = await getUsers()
 
-      return res.status(StatusCodes.ACCEPTED).json(users.data)
-    } catch (e: any) {
+      return res.status(StatusCodes.ACCEPTED).send(users)
+    } catch (err: any) {
       return res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(`${e.message} user.controller`)
+        .send(`${err.message} user.controller`)
     }
   }
 }
