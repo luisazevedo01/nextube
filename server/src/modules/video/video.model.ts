@@ -1,6 +1,6 @@
 import { getModelForClass, prop, Ref } from '@typegoose/typegoose'
 import { customAlphabet } from 'nanoid'
-import { User } from './user/user.model'
+import { User } from '../user/user.model'
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnoprstuvwxyz', 10)
 
@@ -12,7 +12,7 @@ export class Video {
   public description!: string
 
   @prop({ enum: ['mp4'] })
-  public extention!: string
+  public extension!: string
 
   @prop({ required: true, ref: () => User })
   public owner!: Ref<User>

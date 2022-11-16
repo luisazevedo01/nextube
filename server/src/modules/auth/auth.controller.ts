@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import omit from '../../helpers/omit'
+import logger from '../../utils/logger'
 import { findUserByEmail } from '../user/user.service'
 import { LoginBody } from './auth.schema'
 import { signJwt } from './auth.utils'
