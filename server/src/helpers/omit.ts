@@ -15,11 +15,4 @@ function omit<T>(obj: T, property: keyof T | (keyof T)[]) {
   return rest
 }
 
-const t = {
-  username: 'luis',
-  age: 7,
-}
-
-omit(t, 'username')
-
 export default omit

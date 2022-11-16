@@ -8,6 +8,7 @@ import { CORS_ORIGIN } from "./constants";
 import userRoute from "./modules/user/user.route"
 import authRoute from "./modules/auth/auth.route";
 import deserializeUser from "./middleware/deserializeUser";
+import videoRouter from "./modules/video.route";
 
 const PORT = process.env.PORT || 4000;
 
@@ -30,6 +31,7 @@ app.use(deserializeUser)
 
 app.use('/api/users/', userRoute)
 app.use('/api/auth/', authRoute)
+app.use('/api/videos/', videoRouter)
 
 const server = app.listen(PORT, async () => {
   await connectToDatabase();

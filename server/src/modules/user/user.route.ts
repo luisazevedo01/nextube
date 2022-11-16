@@ -4,13 +4,13 @@ import requireUser from '../../middleware/requireUser'
 import UserController from './user.controller'
 import { registerUserSchema } from './user.schema'
 
-const router = express.Router()
+const userRouter = express.Router()
 
-router.get('/', requireUser, (req, res) => {
+userRouter.get('/', requireUser, (req, res) => {
   return res.send(res.locals.user)
 })
 
-router.post(
+userRouter.post(
   '/',
   processRequestBody(registerUserSchema.body),
   UserController.register
@@ -18,4 +18,4 @@ router.post(
 
 //router.get('/', UserController.getAll)
 
-export default router
+export default userRouter 
