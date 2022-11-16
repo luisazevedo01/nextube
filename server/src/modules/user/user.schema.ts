@@ -7,7 +7,7 @@ export const registerUserSchema = {
     }),
     email: string({
       required_error: 'email is required',
-    }),
+    }).email('Must be a valid email'),
     password: string({
       required_error: 'password is required',
     }).min(6, "Password must be at least 6 characters long").max(64, "Password must have less than 64 characters"),

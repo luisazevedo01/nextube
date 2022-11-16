@@ -8,7 +8,7 @@ export async function createUser(
 
 export async function findUserByEmail(
   email: User['email']
-): Promise<User | null> {
+) {
   return UserModel.findOne({ email })
 }
 
